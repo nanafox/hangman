@@ -109,6 +109,8 @@ class Hangman
       process_guess(random_letter)
     else
       puts 'No more hints allowed'
+      make_guess
+      print_teaser
     end
   end
 

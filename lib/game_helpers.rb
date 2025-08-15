@@ -15,7 +15,7 @@ module GameHelpers
 
   def display_saved_games
     files = game_files
-    if files.empty?
+    if files.nil? || files.empty?
       clear_screen
       puts 'There are no saved games'.colorize(:yellow)
       play
@@ -36,6 +36,8 @@ module GameHelpers
 
   def game_files
     Dir.foreach('saves').to_a.reject { |file| %w[. ..].include?(file) }
+  rescue Errno::ENOENT => e
+    nil
   end
 
   def create_save_directory

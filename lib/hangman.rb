@@ -19,6 +19,8 @@ class Hangman
   def play
     welcome
     display_menu
+
+    print "~>: "
     handle_choices(gets.chomp.to_i)
   end
 
@@ -28,7 +30,7 @@ class Hangman
     case choice
     when 1 then start_new_game
     when 2 then load_saved_game
-    when 3 then exit_game
+    when 3 then handle_exit
     else invalid_option
     end
   end
@@ -47,10 +49,6 @@ class Hangman
     make_guess
   end
 
-  def exit_game
-    exit 0
-  end
-
   def invalid_option
     clear_screen
     puts 'Invalid option selected'.colorize(:red)
@@ -61,6 +59,7 @@ class Hangman
     return game_over if @lives <= 0
 
     game_info
+    print_teaser
     puts 'Enter a letter'
     print '~>: '
     handle_guess(gets.chomp.downcase)
@@ -90,7 +89,7 @@ class Hangman
     print_teaser(guess)
     return unless @word == @word_teaser.split.join
 
-    puts 'Congratulations... you have won this round!'.colorize(:green)
+    puts 'Congratulations... you have won!'.colorize(:green)
     exit
   end
 
